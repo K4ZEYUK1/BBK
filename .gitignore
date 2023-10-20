@@ -1,0 +1,5 @@
+/urlaubsantrag/migrations/
+/venv/
+db.sqlite3
+start_server_migrations.bat
+venv.bat
