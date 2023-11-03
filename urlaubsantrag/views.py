@@ -6,10 +6,30 @@ from django.contrib.auth.models import User
 from .forms import CreateRequestForm, ManageRequestForm, CreateUserForm, ManageUserForm
 from django.shortcuts import redirect
 from users.models import CustomUser
-
+import copy
+from datetime import timedelta, date, datetime
+import calendar
+import holidays
+import pprint
 
 
 # Create your views here.
+
+month_names_german = {
+            'January': 'Januar',
+            'February': 'Februar',
+            'March': 'März',
+            'April': 'April',
+            'May': 'Mai',
+            'June': 'Juni',
+            'July': 'Juli',
+            'August': 'August',
+            'September': 'September',
+            'October': 'Oktober',
+            'November': 'November',
+            'December': 'Dezember'
+        }
+
 
 class CheckPermissionMixin:
     def dispatch(self, request, *args, **kwargs):
@@ -163,6 +183,69 @@ class UserOverviewView(LoginRequiredMixin, generic.TemplateView):
         user = self.request.user
 
         context['users'] = CustomUser.objects.all()
+
+        return context
+
+class CalenderView(LoginRequiredMixin, generic.TemplateView):
+    login_url = '/login/'
+    template_name = "urlaubsantrag/calender.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        year_dict = {"year": 2023, "months": []}
+
+        month_dict = {
+            "month_name": None,
+            "month_number": None,
+            "weeks": []
+        }
+
+        day_dict = {
+            "day_name": None,
+            "day_number": None,
+            "day_date": None,
+        }
+
+        day_names = ['MO', 'DI', 'MI', 'DO', 'FR', 'SA', 'SO']
+
+        for month in range(1, 13):
+            current_month_dict = copy.deepcopy(month_dict)
+
+            first_day = date(year_dict["year"], month, 1)
+            last_day = date(year_dict["year"], month, calendar.monthrange(year_dict["year"], month)[1])
+
+            current_month_dict["month_name"] = month_names_german.get(first_day.strftime('%B'), '')
+            current_month_dict["month_number"] = month
+
+            current_day = first_day
+
+            week_dict = {}
+
+            while current_day <= last_day:
+
+                current_day_number = current_day.strftime('%d')
+                current_date_day = day_names[current_day.weekday()]
+                current_day_date = current_day.strftime('%Y-%m-%d')
+
+                try:
+                    current_week_dict[current_date_day] = copy.deepcopy(day_dict)
+                except:
+                    current_week_dict = copy.deepcopy(week_dict)
+                    current_week_dict[current_date_day] = copy.deepcopy(day_dict)
+
+                current_week_dict[current_date_day]["day_name"] = current_date_day
+                current_week_dict[current_date_day]["day_number"] = current_day_number
+                current_week_dict[current_date_day]["day_date"] = current_day_date
+
+                if current_day.weekday() == 6:
+                    current_month_dict["weeks"].append(current_week_dict)
+                    current_week_dict = None
+
+                current_day += timedelta(days=1)
+            year_dict["months"].append(current_month_dict)
+
+        context["selected_year_dict"] = year_dict
 
         return context
 
