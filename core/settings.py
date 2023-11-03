@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from crispy_bootstrap5 import bootstrap5
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,6 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'urlaubsantrag.apps.UrlaubsantragConfig',
+    'users.apps.UsersConfig',
+    'crispy_forms',
+    'crispy_bootstrap5',
+    'bootstrap5',
+    'django_extensions'
 ]
 
 MIDDLEWARE = [
@@ -51,6 +57,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'core.urls'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 TEMPLATES = [
     {
@@ -85,6 +94,12 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
+
+AUTH_USER_MODEL = 'users.CustomUser'
+
+AUTHENTICATION_BACKENDS = [
+    'users.backends.EmailBackend'
+]
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -123,3 +138,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"

@@ -1,0 +1,1 @@
+C:\Users\Admin\PycharmProjects\core\venv\Scripts\activate.bat

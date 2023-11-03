@@ -1,0 +1,26 @@
+{% extends "urlaubsantrag/main.html" %}
+{% load static %}
+
+{% block details %}
+
+    <div class="container hr-text">
+        <div class="row justify-content-center">
+            <div class="col-xl-10 col-lg-12 col-md-9">
+                <div class="p-5">
+
+                    <div class="text-center">
+                        <h1 class="mb-4">Kalender::</h1>
+                    </div>
+
+                    {% if requests %}
+                        {% for request in requests %}
+                                <h3>{{ request }}</h3>
+                        {% endfor %}
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

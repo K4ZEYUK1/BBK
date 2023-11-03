@@ -1,0 +1,48 @@
+{% extends "urlaubsantrag/main.html" %}
+{% load static %}
+
+{% block details %}
+
+    <div class="container hr-text">
+        <div class="row justify-content-center">
+            <div class="col-xl-10 col-lg-12 col-md-9">
+                <div class="p-5">
+
+                    <div class="text-center">
+                        <h1 class="mb-4">Anträge:</h1>
+                    </div>
+
+                    {% if requests %}
+                        <div class="row justify-content-center">
+                            {% for request in requests %}
+                                <div class="position-relative col-3 card hr-accent mx-2 my-2">
+                                    <div class="card-body text-center">
+                                        <a href="/request_details/{{ request.id }}/" class="stretched-link">
+                                        </a>
+                                        <div class="h4 card-title">
+                                            {{ request.requested_by.get_full_name }}
+                                        </div>
+                                        <div class="h5 card-subtitle text-muted">
+                                            Von: {{ request.start_date|date:'d.m.Y' }} <br>
+                                            Bis: {{ request.end_date|date:'d.m.Y' }}
+                                        </div>
+                                        {% if request.acknowledged_by %}
+                                            <div class="mt-1 h5 card-subtitle text-muted">
+                                                {{ request.acknowledged_by.get_full_name }}
+                                            </div>
+                                        {% endif %}
+                                        <span class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-black">
+                                            {{ request.get_request_status_display }}
+                                        </span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

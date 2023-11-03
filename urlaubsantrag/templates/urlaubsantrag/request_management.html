@@ -1,0 +1,31 @@
+{% extends "urlaubsantrag/main.html" %}
+{% load static %}
+
+{% block details %}
+
+    <div class="container hr-text">
+        <div class="row justify-content-center">
+            <div class="col-xl-10 col-lg-12 col-md-9">
+                <div class="p-5">
+
+                    <div class="text-center">
+                        <h1 class="mb-4">Antrag:</h1>
+                    </div>
+
+                    {% if object %}
+                        <div class="card-body text hr-accent">
+                            <div class="h3 card-title text-center">
+                                {{ request.requested_by.get_full_name }} <br>
+                                <b class="h5 text-muted">beantragt Urlaub vom</b><br>
+                                <b class="h3">{{ request.start_date|date:'d.m.Y' }} -
+                                    {{ request.end_date|date:'d.m.Y' }}
+                                </b>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

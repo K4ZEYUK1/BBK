@@ -1,0 +1,93 @@
+{% extends "urlaubsantrag/base.html" %}
+{% load static %}
+
+{% block body %}
+    <body id="page-top" class="" data-bs-theme="dark">
+
+    <div id="wrapper">
+
+        <nav class="navbar navbar-expand-lg hr-accent hr-text">
+
+            <div class="container-fluid">
+
+                <div class="position-relative">
+                    <a class="navbar-brand stretched-link" href="/">FooBar©</a>
+                </div>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    {% if user.is_authenticated %}
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                            <li class="nav-item dropdown hr-accent">
+                                <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                    Administration
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+                                    {% if user.is_superuser %}
+                                        <li><a class="dropdown-item" href="/admin/">Administrationspanel</a></li>
+                                    {% endif %}
+                                </ul>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="/create/request/">Antragstellung</a>
+                            </li>
+
+                            {% if user.is_superuser %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/request_administration/">Urlaubsverwaltung</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/user_overview/">Nutzerverwaltung</a>
+                                </li>
+                            {% endif %}
+
+                            {% block extra_link_navbar %}
+                            {% endblock %}
+                        </ul>
+
+                        <span class="navbar-text" style="margin-right: 1%;">
+                            <a class="nav-link" href="/logout/">Logout</a>
+                        </span>
+
+                        <span class="navbar-text" style="margin-right: 1%;">
+                            <a>|</a>
+                        </span>
+
+
+                        <span class="navbar-text">
+                          {% if  user.get_full_name %}
+                              <a>Hallo {{ user.get_full_name }} </a>
+                          {% else %}
+                              <a>Hallo {{ user }} </a>
+                          {% endif %}
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </nav>
+
+    </div>
+
+    {% block content %}
+    {% endblock %}
+
+
+    {% include "urlaubsantrag/body_scripts.html" %}
+
+    {% include "urlaubsantrag/footer.html" %}
+
+    </body>
+{% endblock %}

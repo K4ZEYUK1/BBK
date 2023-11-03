@@ -1,0 +1,44 @@
+{% extends "urlaubsantrag/main.html" %}
+{% load static %}
+
+{% block details %}
+
+    <div class="container hr-text">
+        <div class="row justify-content-center">
+            <div class="col-xl-10 col-lg-12 col-md-9">
+                <div class="p-5">
+
+                    <div class="text-center">
+                        <h1 class="mb-4">Antrag:</h1>
+                    </div>
+
+                    {% if object %}
+                        <div class="card-body text hr-accent">
+                            <div class="h3 card-title text-center">
+                                {{ request.requested_by.get_full_name }} <br>
+                                <b class="h5 text-muted">beantragt Urlaub vom</b><br>
+                                <b class="h3">{{ request.start_date|date:'d.m.Y' }} -
+                                    {{ request.end_date|date:'d.m.Y' }}
+                                </b>
+                            </div>
+                        </div>
+                    {% endif %}
+                        <form method="POST" action="." class="btn-group btn-group-lg" role="group" aria-label="Large button group">
+                            {% csrf_token %}
+
+                            <button type="submit" name="approve" value="true"
+                                    class="btn btn-success btn-user btn-block m-1 p-2">Annehmen
+                            </button>
+                            <button type="submit" name="decline" value="true"
+                                    class="btn btn-danger btn-user btn-block m-1 p-2">Ablehnen
+                            </button>
+                            <button type="submit" name="withdraw" value="true"
+                                    class="btn btn-warning btn-user btn-block m-1 p-2">Zurückziehen
+                            </button>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
