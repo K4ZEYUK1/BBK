@@ -22,40 +22,40 @@
 
                                     <div class="card">
                                         {% for week in month.weeks %}
-                                            <div class="card-body">
-                                                <div>
+                                            <div class="card-body row justify-content-evenly">
+                                                <div class="card-body col hr-accent border-3 rounded-2 " style="width: calc(100% / 7)">
                                                     {% if week.MO %}
-                                                        {{ week.MO.day_date }}
+                                                        {{ week.MO.day_number }}
                                                     {% endif %}
                                                 </div>
-                                                <div>
+                                                <div class="card-body col hr-accent border-3 rounded-2 p-3" style="width: calc(100% / 7)">
                                                     {% if week.DI %}
-                                                        {{ week.DI.day_date }}
+                                                        {{ week.DI.day_number }}
                                                     {% endif %}
                                                 </div>
-                                                <div>
+                                                <div class="card-body col" style="width: calc(100% / 7)">
                                                     {% if week.MI %}
-                                                        {{ week.MI.day_date }}
+                                                        {{ week.MI.day_number }}
                                                     {% endif %}
                                                 </div>
-                                                <div>
+                                                <div class="card-body col" style="width: calc(100% / 7)">
                                                     {% if week.DO %}
-                                                        {{ week.DO.day_date }}
+                                                        {{ week.DO.day_number }}
                                                     {% endif %}
                                                 </div>
-                                                <div>
+                                                <div class="card-body col" style="width: calc(100% / 7)">
                                                     {% if week.FR %}
-                                                        {{ week.FR.day_date }}
+                                                        {{ week.FR.day_number }}
                                                     {% endif %}
                                                 </div>
-                                                <div>
+                                                <div class="card-body col" style="width: calc(100% / 7)">
                                                     {% if week.SA %}
-                                                        {{ week.SA.day_date }}
+                                                        {{ week.SA.day_number }}
                                                     {% endif %}
                                                 </div>
-                                                <div>
+                                                <div class="card-body col" style="width: calc(100% / 7)">
                                                     {% if week.SO %}
-                                                        {{ week.SO.day_date }}
+                                                        {{ week.SO.day_number }}
                                                     {% endif %}
                                                 </div>
                                             </div>
