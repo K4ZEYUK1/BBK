@@ -238,7 +238,7 @@ class CalenderView(LoginRequiredMixin, generic.TemplateView):
                 current_week_dict[current_date_day]["day_number"] = current_day_number
                 current_week_dict[current_date_day]["day_date"] = current_day_date
 
-                if current_day.weekday() == 6:
+                if current_day.weekday() == 6 or current_day == last_day:
                     current_month_dict["weeks"].append(current_week_dict)
                     current_week_dict = None
 

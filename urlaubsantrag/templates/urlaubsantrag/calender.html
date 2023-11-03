@@ -9,13 +9,62 @@
                 <div class="p-5">
 
                     <div class="text-center">
-                        <h1 class="mb-4">Kalender::</h1>
+                        <h1 class="mb-4">Kalender:</h1>
                     </div>
 
-                    {% if requests %}
-                        {% for request in requests %}
-                                <h3>{{ request }}</h3>
-                        {% endfor %}
+                    {% if selected_year_dict %}
+                        <div class="card">
+                            {% for month in selected_year_dict.months %}
+                                <div class="card-body">
+                                    <div class="text-center">
+                                        <h1 class="mb-4">{{ month.month_name }}</h1>
+                                    </div>
+
+                                    <div class="card">
+                                        {% for week in month.weeks %}
+                                            <div class="card-body">
+                                                <div>
+                                                    {% if week.MO %}
+                                                        {{ week.MO.day_date }}
+                                                    {% endif %}
+                                                </div>
+                                                <div>
+                                                    {% if week.DI %}
+                                                        {{ week.DI.day_date }}
+                                                    {% endif %}
+                                                </div>
+                                                <div>
+                                                    {% if week.MI %}
+                                                        {{ week.MI.day_date }}
+                                                    {% endif %}
+                                                </div>
+                                                <div>
+                                                    {% if week.DO %}
+                                                        {{ week.DO.day_date }}
+                                                    {% endif %}
+                                                </div>
+                                                <div>
+                                                    {% if week.FR %}
+                                                        {{ week.FR.day_date }}
+                                                    {% endif %}
+                                                </div>
+                                                <div>
+                                                    {% if week.SA %}
+                                                        {{ week.SA.day_date }}
+                                                    {% endif %}
+                                                </div>
+                                                <div>
+                                                    {% if week.SO %}
+                                                        {{ week.SO.day_date }}
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+
+                                </div>
+                            {% endfor %}
+                        </div>
                     {% endif %}
 
                 </div>
