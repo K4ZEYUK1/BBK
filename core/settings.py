@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-zm$32b(@!tzklz@zxy4=$k*oz7+-fmi*jhi4)ttl39_zud_(l#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "web.aska.tools", "web40.itwp21.local"]
 
 
 # Application definition
