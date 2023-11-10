@@ -16,16 +16,16 @@
                         <div class="row">
                             {% for month in selected_year_dict.months %}
                                 <div class="card-body mx-4 col-5">
-                                    <div class="text-center">
+                                    <div class="text-center"; style="min-height:50px">
                                         <h1 class="mb-4">{{ month.month_name }}</h1>
                                     </div>
-                                    <div class="row justify-content-evenly">
+                                    <div class="row">
                                         <div class="card-body col border-3 rounded-2 ps-4"
                                              style="width: calc(100% / 7)">
                                             MO
                                         </div>
                                         <div class="card-body col border-3 rounded-2 ps-4"
-                                             style="width: calc(100% / 7)">
+                                             style="width: calc(100% / 7);">
                                             DI
                                         </div>
                                         <div class="card-body col border-3 rounded-2 ps-4"
@@ -52,13 +52,13 @@
                                     <div class="card">
                                         {% for week in month.weeks %}
                                             <div class="card-body row justify-content-evenly">
-                                                <div class="card-body hr-primary col border-3 rounded-2 "
+                                                <div class="card-body col border-3 rounded-2 "
                                                      style="width: calc(100% / 7)">
                                                     {% if week.MO %}
                                                         {{ week.MO.day_number }}
                                                         {% for request in week.MO.entries %}
                                                             <div style="background-color: darkred">
-                                                            {{ request.requested_by.get_full_name}}
+                                                            {{ request.requested_by.abbreviation}}
                                                             </div>
                                                         {% endfor %}
                                                     {% endif %}
@@ -69,7 +69,7 @@
                                                         {{ week.DI.day_number }}
                                                         {% for request in week.DI.entries %}
                                                             <div style="background-color: darkred">
-                                                            {{ request.requested_by.get_full_name }}
+                                                            {{ request.requested_by.abbreviation }}
                                                             </div>
                                                         {% endfor %}
                                                     {% endif %}
@@ -79,7 +79,7 @@
                                                         {{ week.MI.day_number }}
                                                         {% for request in week.MI.entries %}
                                                             <div style="background-color: darkred">
-                                                            {{ request.requested_by.get_full_name}}
+                                                            {{ request.requested_by.abbreviation}}
                                                             </div>
                                                         {% endfor %}
                                                     {% endif %}
@@ -89,7 +89,7 @@
                                                         {{ week.DO.day_number }}
                                                         {% for request in week.DO.entries %}
                                                             <div style="background-color: darkred">
-                                                            {{ request.requested_by.get_full_name}}
+                                                            {{ request.requested_by.abbreviation }}
                                                             </div>
                                                         {% endfor %}
                                                     {% endif %}
@@ -99,7 +99,7 @@
                                                         {{ week.FR.day_number }}
                                                         {% for request in week.FR.entries %}
                                                             <div style="background-color: darkred">
-                                                            {{ request.requested_by.get_full_name}}
+                                                            {{ request.requested_by.abbreviation }}
                                                             </div>
                                                         {% endfor %}
                                                     {% endif %}
@@ -109,7 +109,7 @@
                                                         {{ week.SA.day_number }}
                                                         {% for request in week.SA.entries %}
                                                             <div style="background-color: darkred">
-                                                            {{ request.requested_by.get_full_name}}
+                                                            {{ request.requested_by.abbreviation }}
                                                             </div>
                                                         {% endfor %}
                                                     {% endif %}
@@ -119,7 +119,7 @@
                                                         {{ week.SO.day_number }}
                                                         {% for request in week.SO.entries %}
                                                             <div style="background-color: darkred">
-                                                            {{ request.requested_by.get_full_name}}
+                                                            {{ request.requested_by.abbreviation }}
                                                             </div>
                                                         {% endfor %}
                                                     {% endif %}
