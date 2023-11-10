@@ -6,87 +6,122 @@
     <div class="container hr-text">
         <div class="row justify-content-center">
             <div class="col-xl-10 col-lg-12 col-md-9">
-                <div class="p-5">
+                <div>
 
                     <div class="text-center">
                         <h1 class="mb-4">Kalender:</h1>
                     </div>
 
                     {% if selected_year_dict %}
-                        <div class="card">
+                        <div class="row">
                             {% for month in selected_year_dict.months %}
-                                <div class="card-body">
+                                <div class="card-body mx-4 col-5">
                                     <div class="text-center">
                                         <h1 class="mb-4">{{ month.month_name }}</h1>
                                     </div>
                                     <div class="row justify-content-evenly">
-                                        <div class="card-body col hr-accent border-3 rounded-2 "
+                                        <div class="card-body col border-3 rounded-2 ps-4"
                                              style="width: calc(100% / 7)">
-                                            Montag
+                                            MO
                                         </div>
-                                        <div class="card-body col hr-accent border-3 rounded-2 "
+                                        <div class="card-body col border-3 rounded-2 ps-4"
                                              style="width: calc(100% / 7)">
-                                            Dienstag
+                                            DI
                                         </div>
-                                        <div class="card-body col hr-accent border-3 rounded-2 "
+                                        <div class="card-body col border-3 rounded-2 ps-4"
                                              style="width: calc(100% / 7)">
-                                            Mittwoch
+                                            MI
                                         </div>
-                                        <div class="card-body col hr-accent border-3 rounded-2 "
+                                        <div class="card-body col border-3 rounded-2 ps-4"
                                              style="width: calc(100% / 7)">
-                                            Donnerstag
+                                            DO
                                         </div>
-                                        <div class="card-body col hr-accent border-3 rounded-2 "
+                                        <div class="card-body col border-3 rounded-2 ps-4"
                                              style="width: calc(100% / 7)">
-                                            Freitag
+                                            FR
                                         </div>
-                                        <div class="card-body col hr-accent border-3 rounded-2 "
+                                        <div class="card-body col border-3 rounded-2 ps-4"
                                              style="width: calc(100% / 7)">
-                                            Samstag
+                                            SA
                                         </div>
-                                        <div class="card-body col hr-accent border-3 rounded-2 "
+                                        <div class="card-body col border-3 rounded-2 ps-4"
                                              style="width: calc(100% / 7)">
-                                            Sonntag
+                                            SO
                                         </div>
                                     </div>
                                     <div class="card">
                                         {% for week in month.weeks %}
                                             <div class="card-body row justify-content-evenly">
-                                                <div class="card-body col hr-accent border-3 rounded-2 "
+                                                <div class="card-body hr-primary col border-3 rounded-2 "
                                                      style="width: calc(100% / 7)">
                                                     {% if week.MO %}
                                                         {{ week.MO.day_number }}
+                                                        {% for request in week.MO.entries %}
+                                                            <div style="background-color: darkred">
+                                                            {{ request.requested_by.get_full_name}}
+                                                            </div>
+                                                        {% endfor %}
                                                     {% endif %}
                                                 </div>
-                                                <div class="card-body col hr-accent border-3 rounded-2 p-3"
+                                                <div class="card-body col border-3 rounded-2 p-3"
                                                      style="width: calc(100% / 7)">
                                                     {% if week.DI %}
                                                         {{ week.DI.day_number }}
+                                                        {% for request in week.DI.entries %}
+                                                            <div style="background-color: darkred">
+                                                            {{ request.requested_by.get_full_name }}
+                                                            </div>
+                                                        {% endfor %}
                                                     {% endif %}
                                                 </div>
                                                 <div class="card-body col" style="width: calc(100% / 7)">
                                                     {% if week.MI %}
                                                         {{ week.MI.day_number }}
+                                                        {% for request in week.MI.entries %}
+                                                            <div style="background-color: darkred">
+                                                            {{ request.requested_by.get_full_name}}
+                                                            </div>
+                                                        {% endfor %}
                                                     {% endif %}
                                                 </div>
                                                 <div class="card-body col" style="width: calc(100% / 7)">
                                                     {% if week.DO %}
                                                         {{ week.DO.day_number }}
+                                                        {% for request in week.DO.entries %}
+                                                            <div style="background-color: darkred">
+                                                            {{ request.requested_by.get_full_name}}
+                                                            </div>
+                                                        {% endfor %}
                                                     {% endif %}
                                                 </div>
                                                 <div class="card-body col" style="width: calc(100% / 7)">
                                                     {% if week.FR %}
                                                         {{ week.FR.day_number }}
+                                                        {% for request in week.FR.entries %}
+                                                            <div style="background-color: darkred">
+                                                            {{ request.requested_by.get_full_name}}
+                                                            </div>
+                                                        {% endfor %}
                                                     {% endif %}
                                                 </div>
                                                 <div class="card-body col" style="width: calc(100% / 7)">
                                                     {% if week.SA %}
                                                         {{ week.SA.day_number }}
+                                                        {% for request in week.SA.entries %}
+                                                            <div style="background-color: darkred">
+                                                            {{ request.requested_by.get_full_name}}
+                                                            </div>
+                                                        {% endfor %}
                                                     {% endif %}
                                                 </div>
                                                 <div class="card-body col" style="width: calc(100% / 7)">
                                                     {% if week.SO %}
                                                         {{ week.SO.day_number }}
+                                                        {% for request in week.SO.entries %}
+                                                            <div style="background-color: darkred">
+                                                            {{ request.requested_by.get_full_name}}
+                                                            </div>
+                                                        {% endfor %}
                                                     {% endif %}
                                                 </div>
                                             </div>

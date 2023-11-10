@@ -198,16 +198,26 @@ class CalenderView(LoginRequiredMixin, generic.TemplateView):
         month_dict = {
             "month_name": None,
             "month_number": None,
-            "weeks": []
+            "weeks": [],
         }
 
         day_dict = {
             "day_name": None,
             "day_number": None,
             "day_date": None,
+            "entries": None,
         }
 
         day_names = ['MO', 'DI', 'MI', 'DO', 'FR', 'SA', 'SO']
+
+        first_day_of_year = date(year_dict["year"], 1, 1)
+        last_day_of_year = date(year_dict["year"], 12, 31)
+
+        all_requests_year = Request.objects.filter(start_date__lte=last_day_of_year, end_date__gte=first_day_of_year, request_status=RequestStatus.ACCEPTED)
+
+        request_range = [
+            (request.start_date, request.end_date) for request in all_requests_year
+        ]
 
         for month in range(1, 13):
             current_month_dict = copy.deepcopy(month_dict)
@@ -237,6 +247,7 @@ class CalenderView(LoginRequiredMixin, generic.TemplateView):
                 current_week_dict[current_date_day]["day_name"] = current_date_day
                 current_week_dict[current_date_day]["day_number"] = current_day_number
                 current_week_dict[current_date_day]["day_date"] = current_day_date
+                current_week_dict[current_date_day]["entries"] = all_requests_year.filter(start_date__lte=current_day, end_date__gte=current_day)
 
                 if current_day.weekday() == 6 or current_day == last_day:
                     current_month_dict["weeks"].append(current_week_dict)
