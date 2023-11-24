@@ -27,6 +27,29 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
+class Province(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    name = models.CharField(max_length=50, blank=False)
+    state_abreviation = models.CharField(max_length=50, blank=False)
+    country = CountryField(blank=False, null=False)
+
+    def __str__(self):
+        return '%s' % self.name
+
+
+class StandardHoliday(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    name = models.CharField(max_length=255)
+
+    country = CountryField(blank=False, null=False)
+    province = models.ForeignKey(Province, on_delete=models.CASCADE, blank=False, null=False, related_name="standard_holidays")
+
+    date = models.DateField(blank=False, null=False)
+
+    def __str__(self):
+        return '%s | %s' % (self.name, self.date)
+
+
 class Department(models.Model):
     id = models.BigAutoField(primary_key=True)
     name = models.CharField(max_length=30, blank=False)
@@ -60,11 +83,15 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     abbreviation = models.CharField(max_length=3)
     staff_nr = models.CharField(max_length=6)
     country = CountryField(blank=True, null=True)
+    province = models.ForeignKey(Province, on_delete=models.SET_NULL, blank=True, null=True)
 
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ["first_name", "last_name"]
+
+    vacation_entitlement = models.PositiveSmallIntegerField(default=24, validators=[MinValueValidator(20), MaxValueValidator(365)])
+    manual_vacation_correction = models.IntegerField(default=0)
 
     def __str__(self):
         return self.email

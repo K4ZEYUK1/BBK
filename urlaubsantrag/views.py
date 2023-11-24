@@ -2,18 +2,57 @@ from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 from .models import Request, RequestStatus
-from django.contrib.auth.models import User
 from .forms import CreateRequestForm, ManageRequestForm, CreateUserForm, ManageUserForm
 from django.shortcuts import redirect
-from users.models import CustomUser
+from users.models import CustomUser, StandardHoliday
 import copy
 from datetime import timedelta, date, datetime
 import calendar
 import holidays
 import pprint
+from django.contrib.auth import get_user_model
 
-
+User = get_user_model()
 # Create your views here.
+
+
+def calculate_remaining_vacation_days(user, year=None):
+    if not year:
+        year = date.today().year
+
+    used_vacation_days = calculate_vacation_usage(user=user, year=year)
+    remaining_vacation_days = user.vacation_entitlement
+
+    return remaining_vacation_days - used_vacation_days + user.manual_vacation_correction
+
+
+def calculate_vacation_usage(user, year=None):
+    if not year:
+        year = date.today().year
+
+    start_of_year = date(year, 1, 1)
+    end_of_year = date(year, 12, 31)
+
+    user_request_current_year = Request.objects.filter(requested_by=user, request_status=RequestStatus.ACCEPTED,
+                                                       start_date__lte=end_of_year, end_date__gte=start_of_year)
+
+    vacation_taken = 0
+
+    for request in user_request_current_year:
+        start_date = max(request.start_date, start_of_year)
+        end_date = min(request.end_date, end_of_year)
+
+        current_date = start_date
+
+        while current_date <= end_date:
+            if not StandardHoliday.objects.filter(date=current_date, province=user.province, country=user.country).exists():
+                if current_date.weekday() in [0, 1, 2, 3, 4]:
+                    vacation_taken += 1
+
+            current_date += timedelta(days=1)
+
+    return vacation_taken
+
 
 month_names_german = {
             'January': 'Januar',
@@ -47,9 +86,12 @@ class LandingPageView(LoginRequiredMixin, generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user = self.request.user
+        user: CustomUser = self.request.user
 
         context['requests'] = Request.objects.filter(requested_by=user)
+        context['vacation_entitlement'] = user.vacation_entitlement
+        context['vacation_taken'] = calculate_vacation_usage(user=user)
+        context['remaining_vacation'] = calculate_remaining_vacation_days(user=user)
 
         return context
 
@@ -162,6 +204,16 @@ class ManageUserView(LoginRequiredMixin, generic.UpdateView):
     def form_valid(self, form):
         new_user = form.save(commit=False)
         old_user_object = self.get_object()
+
+        if old_user_object.is_staff:
+            new_user.is_staff = True
+
+        if old_user_object.is_active:
+            new_user.is_active = True
+
+        if old_user_object.is_superuser:
+            new_user.is_superuser = True
+
         if form.cleaned_data['password'] == "stop":
             new_user.password = old_user_object.password
         else:
@@ -186,14 +238,41 @@ class UserOverviewView(LoginRequiredMixin, generic.TemplateView):
 
         return context
 
+
 class CalenderView(LoginRequiredMixin, generic.TemplateView):
     login_url = '/login/'
     template_name = "urlaubsantrag/calender.html"
 
+    def post(self, request, *args, **kwargs):
+
+        year_selection = request.POST.get('year_selection')
+
+        if year_selection == "next_year":
+            current_year = self.request.session.get('selected_year')
+
+            current_year += 1
+
+            self.request.session['selected_year'] = current_year
+
+        if year_selection == "previous_year":
+            current_year = self.request.session.get('selected_year')
+
+            current_year -= 1
+
+            self.request.session['selected_year'] = current_year
+
+        return redirect('.')
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        year_dict = {"year": 2023, "months": []}
+        if not self.request.session.get('selected_year'):
+            context["selected_year"] = datetime.now().year
+            self.request.session['selected_year'] = context["selected_year"]
+        else:
+            context["selected_year"] = self.request.session.get('selected_year')
+
+        year_dict = {"year": context["selected_year"], "months": []}
 
         month_dict = {
             "month_name": None,
@@ -206,6 +285,7 @@ class CalenderView(LoginRequiredMixin, generic.TemplateView):
             "day_number": None,
             "day_date": None,
             "entries": None,
+            "holiday": None,
         }
 
         day_names = ['MO', 'DI', 'MI', 'DO', 'FR', 'SA', 'SO']
@@ -247,7 +327,9 @@ class CalenderView(LoginRequiredMixin, generic.TemplateView):
                 current_week_dict[current_date_day]["day_name"] = current_date_day
                 current_week_dict[current_date_day]["day_number"] = current_day_number
                 current_week_dict[current_date_day]["day_date"] = current_day_date
+                
                 current_week_dict[current_date_day]["entries"] = all_requests_year.filter(start_date__lte=current_day, end_date__gte=current_day)
+                current_week_dict[current_date_day]["holiday"] = StandardHoliday.objects.filter(date=current_day, province=self.request.user.province, country=self.request.user.country)
 
                 if current_day.weekday() == 6 or current_day == last_day:
                     current_month_dict["weeks"].append(current_week_dict)

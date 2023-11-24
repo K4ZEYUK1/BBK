@@ -6,13 +6,33 @@
     <div class="container hr-text">
         <div class="row justify-content-center">
             <div class="col-xl-10 col-lg-12 col-md-9">
+                <form method="post" action=".">
+                    {% csrf_token %}
+
+                    <div class="card-body text" style="margin-top: 100px; display: flex; justify-content: space-between; align-items: center; max-width: 300px; margin: 0 auto;">
+
+                        <button class="btn btn-dark btn-block m-2 p-2" type="submit" value="previous_year" name="year_selection" style="white-space: nowrap;">
+                            Vorheriges Jahr
+                        </button>
+
+                        <h1>{{ selected_year }}</h1>
+
+                        <button class="btn btn-dark btn-block m-2 p-2" type="submit" value="previous_year" name="year_selection" style="white-space: nowrap;">
+                            Nächstes Jahr
+                        </button>
+
+                    </div>
+                </form>
+
+                <hr style="margin-top: 20px; border: 1px solid #ccc;">
+
                 <div>
 
                     {% if selected_year_dict %}
                         <div class="row">
                             {% for month in selected_year_dict.months %}
                                 <div class="card-body mx-4 col-5">
-                                    <div class="text-center"; style="min-height:50px">
+                                    <div class="text-center" ; style="min-height:50px">
                                         <h1 class="mb-4">{{ month.month_name }}</h1>
                                     </div>
                                     <div class="row">
@@ -52,9 +72,14 @@
                                                      style="width: calc(100% / 7)">
                                                     {% if week.MO %}
                                                         {{ week.MO.day_number }}
+                                                        {% for holiday in week.MO.holiday %}
+                                                            <div class="w-100" style="background-color: blue">
+                                                                FREI
+                                                            </div>
+                                                        {% endfor %}
                                                         {% for request in week.MO.entries %}
                                                             <div style="background-color: darkred">
-                                                            {{ request.requested_by.abbreviation}}
+                                                                {{ request.requested_by.abbreviation }}
                                                             </div>
                                                         {% endfor %}
                                                     {% endif %}
@@ -63,9 +88,14 @@
                                                      style="width: calc(100% / 7)">
                                                     {% if week.DI %}
                                                         {{ week.DI.day_number }}
+                                                        {% for holiday in week.DI.holiday %}
+                                                            <div class="w-100" style="background-color: blue">
+                                                                FREI
+                                                            </div>
+                                                        {% endfor %}
                                                         {% for request in week.DI.entries %}
                                                             <div style="background-color: darkred">
-                                                            {{ request.requested_by.abbreviation }}
+                                                                {{ request.requested_by.abbreviation }}
                                                             </div>
                                                         {% endfor %}
                                                     {% endif %}
@@ -73,9 +103,14 @@
                                                 <div class="card-body col" style="width: calc(100% / 7)">
                                                     {% if week.MI %}
                                                         {{ week.MI.day_number }}
+                                                        {% for holiday in week.MI.holiday %}
+                                                            <div class="w-100" style="background-color: blue">
+                                                                FREI
+                                                            </div>
+                                                        {% endfor %}
                                                         {% for request in week.MI.entries %}
                                                             <div style="background-color: darkred">
-                                                            {{ request.requested_by.abbreviation}}
+                                                                {{ request.requested_by.abbreviation }}
                                                             </div>
                                                         {% endfor %}
                                                     {% endif %}
@@ -83,9 +118,14 @@
                                                 <div class="card-body col" style="width: calc(100% / 7)">
                                                     {% if week.DO %}
                                                         {{ week.DO.day_number }}
+                                                        {% for holiday in week.DO.holiday %}
+                                                            <div class="w-100" style="background-color: blue">
+                                                                FREI
+                                                            </div>
+                                                        {% endfor %}
                                                         {% for request in week.DO.entries %}
                                                             <div style="background-color: darkred">
-                                                            {{ request.requested_by.abbreviation }}
+                                                                {{ request.requested_by.abbreviation }}
                                                             </div>
                                                         {% endfor %}
                                                     {% endif %}
@@ -93,9 +133,14 @@
                                                 <div class="card-body col" style="width: calc(100% / 7)">
                                                     {% if week.FR %}
                                                         {{ week.FR.day_number }}
+                                                        {% for holiday in week.FR.holiday %}
+                                                            <div class="w-100" style="background-color: blue">
+                                                                FREI
+                                                            </div>
+                                                        {% endfor %}
                                                         {% for request in week.FR.entries %}
                                                             <div style="background-color: darkred">
-                                                            {{ request.requested_by.abbreviation }}
+                                                                {{ request.requested_by.abbreviation }}
                                                             </div>
                                                         {% endfor %}
                                                     {% endif %}
@@ -103,9 +148,14 @@
                                                 <div class="card-body col" style="width: calc(100% / 7)">
                                                     {% if week.SA %}
                                                         {{ week.SA.day_number }}
+                                                        {% for holiday in week.SA.holiday %}
+                                                            <div class="w-100" style="background-color: blue">
+                                                                FREI
+                                                            </div>
+                                                        {% endfor %}
                                                         {% for request in week.SA.entries %}
                                                             <div style="background-color: darkred">
-                                                            {{ request.requested_by.abbreviation }}
+                                                                {{ request.requested_by.abbreviation }}
                                                             </div>
                                                         {% endfor %}
                                                     {% endif %}
@@ -113,9 +163,14 @@
                                                 <div class="card-body col" style="width: calc(100% / 7)">
                                                     {% if week.SO %}
                                                         {{ week.SO.day_number }}
+                                                        {% for holiday in week.SO.holiday %}
+                                                            <div class="w-100" style="background-color: blue">
+                                                                FREI
+                                                            </div>
+                                                        {% endfor %}
                                                         {% for request in week.SO.entries %}
                                                             <div style="background-color: darkred">
-                                                            {{ request.requested_by.abbreviation }}
+                                                                {{ request.requested_by.abbreviation }}
                                                             </div>
                                                         {% endfor %}
                                                     {% endif %}

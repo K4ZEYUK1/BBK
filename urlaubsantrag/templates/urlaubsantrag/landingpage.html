@@ -12,9 +12,17 @@
                         <h1 class="mb-4">Eigene Anträge:</h1>
                     </div>
 
+                    <div class="text-center hr-accent">
+
+                        <h3>Urlaubsanspruch: {{ vacation_entitlement }} Tage</h3>
+                        <h3>Genommener Urlaub: {{ vacation_taken }} Tage</h3>
+                        <h3>Resturlaub: {{ remaining_vacation }} Tage</h3>
+
+                    </div>
+
                     {% if requests %}
                         {% for request in requests %}
-                                <h3>{{ request }}</h3>
+                            <h3>{{ request }}</h3>
                         {% endfor %}
                     {% endif %}
 

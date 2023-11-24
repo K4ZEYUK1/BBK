@@ -40,7 +40,7 @@ class ManageUserForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = ['first_name', 'last_name', 'email', 'password', 'abbreviation', 'staff_nr', 'is_active',
-                  'employee_admin_level', 'department', 'country']
+                  'employee_admin_level', 'department', 'country', 'vacation_entitlement', 'province']
         labels = {
             'first_name': 'Vorname',
             'last_name': 'Nachname',
@@ -51,7 +51,9 @@ class ManageUserForm(forms.ModelForm):
             'is_active': 'Aktiv',
             'employee_admin_level': 'Berechtigungen',
             'department': 'Abteilung',
-            'country': 'Land'
+            'country': 'Land',
+            'vacation_entitlement': 'Urlaubsanspruch',
+            'province': 'Bundesland'
         }
 
 
