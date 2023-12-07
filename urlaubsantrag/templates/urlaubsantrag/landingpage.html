@@ -8,10 +8,6 @@
             <div class="col-xl-10 col-lg-12 col-md-9">
                 <div class="p-5">
 
-                    <div class="text-center">
-                        <h1 class="mb-4">Eigene Anträge:</h1>
-                    </div>
-
                     <div class="text-center hr-accent">
 
                         <h3>Urlaubsanspruch: {{ vacation_entitlement }} Tage</h3>
@@ -19,12 +15,17 @@
                         <h3>Resturlaub: {{ remaining_vacation }} Tage</h3>
 
                     </div>
-
+                    <div class="text-center">
+                        <h1 class="mb-4">Eigene Anträge:</h1>
+                    </div>
+                    <div class="text-center">
                     {% if requests %}
                         {% for request in requests %}
-                            <h3>{{ request }}</h3>
+                            <h3>Urlaub von {{ request.start_date|date:'d.m.Y' }} bis {{ request.end_date|date:'d.m.Y' }}
+                                | Status: {{ request.get_request_status_display }}</h3>
                         {% endfor %}
                     {% endif %}
+                    </div>
 
                 </div>
             </div>

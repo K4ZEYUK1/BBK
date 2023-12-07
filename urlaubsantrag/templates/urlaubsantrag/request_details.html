@@ -23,6 +23,7 @@
                             </div>
                         </div>
                     {% endif %}
+                        {% if request.request_status == "NEW" %}
                         <form method="POST" action="." class="btn-group btn-group-lg" role="group" aria-label="Large button group">
                             {% csrf_token %}
 
@@ -36,6 +37,7 @@
                                     class="btn btn-warning btn-user btn-block m-1 p-2">Zurückziehen
                             </button>
                         </form>
+                        {% endif %}
                 </div>
             </div>
         </div>

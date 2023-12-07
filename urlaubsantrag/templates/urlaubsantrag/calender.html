@@ -17,7 +17,7 @@
 
                         <h1>{{ selected_year }}</h1>
 
-                        <button class="btn btn-dark btn-block m-2 p-2" type="submit" value="previous_year" name="year_selection" style="white-space: nowrap;">
+                        <button class="btn btn-dark btn-block m-2 p-2" type="submit" value="next_year" name="year_selection" style="white-space: nowrap;">
                             Nächstes Jahr
                         </button>
 
@@ -78,8 +78,9 @@
                                                             </div>
                                                         {% endfor %}
                                                         {% for request in week.MO.entries %}
-                                                            <div style="background-color: darkred">
+                                                            <div class="position-relative" style="background-color: darkred">
                                                                 {{ request.requested_by.abbreviation }}
+                                                                <a class="stretched-link" href="/request_details/{{ request.id }}/"></a>
                                                             </div>
                                                         {% endfor %}
                                                     {% endif %}
@@ -94,8 +95,9 @@
                                                             </div>
                                                         {% endfor %}
                                                         {% for request in week.DI.entries %}
-                                                            <div style="background-color: darkred">
+                                                            <div class="position-relative" style="background-color: darkred">
                                                                 {{ request.requested_by.abbreviation }}
+                                                                <a class="stretched-link" href="/request_details/{{ request.id }}/"></a>
                                                             </div>
                                                         {% endfor %}
                                                     {% endif %}
@@ -109,8 +111,9 @@
                                                             </div>
                                                         {% endfor %}
                                                         {% for request in week.MI.entries %}
-                                                            <div style="background-color: darkred">
+                                                            <div class="position-relative" style="background-color: darkred">
                                                                 {{ request.requested_by.abbreviation }}
+                                                                <a class="stretched-link" href="/request_details/{{ request.id }}/"></a>
                                                             </div>
                                                         {% endfor %}
                                                     {% endif %}
@@ -124,8 +127,9 @@
                                                             </div>
                                                         {% endfor %}
                                                         {% for request in week.DO.entries %}
-                                                            <div style="background-color: darkred">
+                                                            <div class="position-relative" style="background-color: darkred">
                                                                 {{ request.requested_by.abbreviation }}
+                                                                <a class="stretched-link" href="/request_details/{{ request.id }}/"></a>
                                                             </div>
                                                         {% endfor %}
                                                     {% endif %}
@@ -139,8 +143,9 @@
                                                             </div>
                                                         {% endfor %}
                                                         {% for request in week.FR.entries %}
-                                                            <div style="background-color: darkred">
+                                                            <div class="position-relative" style="background-color: darkred">
                                                                 {{ request.requested_by.abbreviation }}
+                                                                <a class="stretched-link" href="/request_details/{{ request.id }}/"></a>
                                                             </div>
                                                         {% endfor %}
                                                     {% endif %}
@@ -154,8 +159,9 @@
                                                             </div>
                                                         {% endfor %}
                                                         {% for request in week.SA.entries %}
-                                                            <div style="background-color: darkred">
+                                                            <div class="position-relative" style="background-color: darkred">
                                                                 {{ request.requested_by.abbreviation }}
+                                                                <a class="stretched-link" href="/request_details/{{ request.id }}/"></a>
                                                             </div>
                                                         {% endfor %}
                                                     {% endif %}
@@ -169,8 +175,9 @@
                                                             </div>
                                                         {% endfor %}
                                                         {% for request in week.SO.entries %}
-                                                            <div style="background-color: darkred">
+                                                            <div class="position-relative" style="background-color: darkred">
                                                                 {{ request.requested_by.abbreviation }}
+                                                                <a class="stretched-link" href="/request_details/{{ request.id }}/"></a>
                                                             </div>
                                                         {% endfor %}
                                                     {% endif %}
