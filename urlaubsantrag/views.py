@@ -96,6 +96,15 @@ class LandingPageView(LoginRequiredMixin, generic.TemplateView):
         return context
 
 
+class ImpressumView(generic.TemplateView):
+    template_name = "urlaubsantrag/impressum.html"
+
+class DatenschutzView(generic.TemplateView):
+    template_name = "urlaubsantrag/datenschutz.html"
+
+class ContactView(generic.TemplateView):
+    template_name = "urlaubsantrag/contact.html"
+
 class CreateRequestView(LoginRequiredMixin, generic.CreateView):
     login_url = '/login/'
     template_name = "urlaubsantrag/create_request.html"

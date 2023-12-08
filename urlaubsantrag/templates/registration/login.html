@@ -3,32 +3,29 @@
 {% load crispy_forms_filters %}
 
 {% block body %}
-<body class="hr-secondary">
+  <body class="hr-secondary">
 
+    <div class="container hr-text">
+      <div class="row justify-content-center">
+        <div class="col-xl-10 col-lg-12 col-md-9">
+          <div class="p-5">
+            <div class="text-center">
+              <h1 class="h4 mb-4">Bitte logge dich ein, um fortzufahren</h1>
+            </div>
 
-<div class="container hr-text">
-
-  <div class="row justify-content-center">
-    <div class="col-xl-10 col-lg-12 col-md-9">
-      <div class="p-5">
-
-        <div class="text-center">
-          <h1 class="h4 mb-4">Bitte logge dich ein, um fortzufahren</h1>
+            <form method="POST" class="form-signin">
+              {% csrf_token %}
+              {{ form|crispy }}
+              <input type="hidden" name="next" value="{{ next }}"/>
+              <button class="btn btn-dark btn-user btn-block">Login</button>
+            </form>
+          </div>
         </div>
-
-        <form method="POST" class="form-signin">
-          {% csrf_token %}
-          {{ form|crispy }}
-          <input type="hidden" name="next" value="{{ next }}"/>
-          <button class="btn btn-dark btn-user btn-block">Login</button>
-        </form>
       </div>
     </div>
-  </div>
-</div>
 
+    {% include "urlaubsantrag/body_scripts.html" %}
+  </body>
 
-{% include "urlaubsantrag/body_scripts.html" %}
-{% include "urlaubsantrag/footer.html" %}
-</body>
+  {% include "urlaubsantrag/footer.html" %}
 {% endblock %}

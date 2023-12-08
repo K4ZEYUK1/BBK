@@ -1,0 +1,77 @@
+{% extends "urlaubsantrag/master.html" %}
+{% load static %}
+{% block content %}
+    {% load crispy_forms_filters %}
+
+    {% if user.is_authenticated %}
+
+        <div class="d-flex hr-secondary hr-text">
+            <div class="min-vh-85 flex-grow-1 ">
+
+                {% block details %}
+                    <article class="text-center">
+                        <h2>Datenschutzerklärung für das Urlaubsplanungs-Tool</h2>
+
+                        <p><strong>Datum der letzten Aktualisierung:</strong> 08.12.2023</p>
+
+                        <p>Wir, die Restrover GmbH, sind uns der Bedeutung des Schutzes Ihrer personenbezogenen Daten
+                            bewusst und verpflichten uns, Ihre Privatsphäre zu respektieren. Diese Datenschutzerklärung
+                            informiert Sie darüber, wie wir Informationen sammeln, verwenden, offenlegen und schützen,
+                            die Sie uns zur Verfügung stellen.</p>
+
+                        <h3>1. Erhobene Daten</h3>
+
+                        <h4>1.1 Personenbezogene Daten:</h4>
+                        <p>Wir erfassen personenbezogene Daten, die Sie uns bereitstellen, wenn Sie unser
+                            Urlaubsplanungs-Tool nutzen. Dazu gehören, sind jedoch nicht beschränkt auf, Name,
+                            Kontaktdaten, Urlaubsanfragen und sonstige relevante Informationen.</p>
+
+                        <h4>1.2 Automatisch generierte Daten:</h4>
+                        <p>Wir erfassen auch automatisch generierte Daten, wie IP-Adressen, Gerätetyp, Browsertyp und
+                            -version, um die Sicherheit und Leistung des Tools zu gewährleisten.</p>
+
+                        <h3>2. Verwendung der Daten</h3>
+
+                        <h4>2.1 Urlaubsplanung:</h4>
+                        <p>Die von Ihnen bereitgestellten Informationen werden ausschließlich für die Verwaltung und
+                            Planung von Urlauben verwendet.</p>
+
+                        <h4>2.2 Kundenunterstützung:</h4>
+                        <p>Wir nutzen Ihre Daten, um Ihnen bei Fragen oder Problemen behilflich zu sein und technische
+                            Unterstützung anzubieten.</p>
+
+                        <h3>3. Datensicherheit</h3>
+                        <p>Wir ergreifen angemessene technische und organisatorische Maßnahmen, um Ihre Daten vor
+                            unbefugtem Zugriff, Verlust oder Missbrauch zu schützen.</p>
+
+                        <h3>4. Keine Weitergabe an Dritte</h3>
+                        <p>Wir versichern, dass zu keiner Zeit personenbezogene Daten an Dritte weitergegeben werden, es
+                            sei denn, dies ist gesetzlich vorgeschrieben oder notwendig, um unsere Rechte zu
+                            schützen.</p>
+
+                        <h3>5. Übertragung von Daten</h3>
+                        <p>Bei Nutzung unseres Tools außerhalb unserer internen Umgebung, beispielsweise durch Kunden,
+                            können Daten über das Internet übertragen werden. Wir treffen angemessene Maßnahmen, um die
+                            Sicherheit dieser Übertragungen zu gewährleisten.</p>
+
+                        <h3>6. Ihre Rechte</h3>
+                        <p>Sie haben das Recht, auf Ihre personenbezogenen Daten zuzugreifen, diese zu korrigieren, zu
+                            löschen oder deren Verarbeitung zu beschränken. Kontaktieren Sie uns bitte für weitere
+                            Informationen.</p>
+
+                        <h3>7. Änderungen dieser Datenschutzerklärung</h3>
+                        <p>Diese Datenschutzerklärung kann von Zeit zu Zeit aktualisiert werden. Die aktuelle Version
+                            wird auf unserer Website veröffentlicht.</p>
+
+                        <p>Kontaktieren Sie uns bei Fragen oder Bedenken bezüglich dieser Datenschutzerklärung unter <a
+                                href="mailto:datenschutz@restrover.com">datenschutz@restrover.com</a>.</p>
+                    </article>
+
+                {% endblock %}
+
+            </div>
+        </div>
+
+    {% endif %}
+
+{% endblock %}

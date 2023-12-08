@@ -17,6 +17,9 @@ urlpatterns = [
     path('manage/user/<int:pk>/', views.ManageUserView.as_view(), name="ManageUserView"),
     path('user_overview/', views.UserOverviewView.as_view(), name="UserOverviewView"),
     path('calender/', views.CalenderView.as_view(), name="CalenderView"),
+    path('impressum/', views.ImpressumView.as_view(), name="ImpressumView"),
+    path('datenschutz/', views.DatenschutzView.as_view(), name="DatenschutzView"),
+    path('contact/', views.ContactView.as_view(), name="ContactView"),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
